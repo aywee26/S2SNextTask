@@ -6,6 +6,8 @@ public interface IBooksRepository
 {
     Task<Book?> GetBookByIdAsync(Guid id, CancellationToken token = default);
     Task<IEnumerable<Book>> GetAllBooksAsync(CancellationToken token = default);
+    Task<IEnumerable<Book>> GetFilteredBooksAsync(string? title = null, string? author = null, CancellationToken token = default);
+
 
     Task<Book?> DeleteBookAsync(Book entity, CancellationToken token = default);
 }
