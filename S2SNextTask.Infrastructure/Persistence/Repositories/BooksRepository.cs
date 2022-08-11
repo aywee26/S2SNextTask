@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using S2SNextTask.Application.Common.Interfaces.Persistence;
 using S2SNextTask.Domain.Entities;
-using System.Linq;
+using S2SNextTask.Domain.Enums;
 
 namespace S2SNextTask.Infrastructure.Persistence.Repositories
 {
@@ -41,33 +41,27 @@ namespace S2SNextTask.Infrastructure.Persistence.Repositories
             return result.Entity;
         }
 
-        public async Task<IEnumerable<Book>> GetFilteredBooksAsync(string? title = null, string? author = null, CancellationToken token = default)
+        public async Task<IEnumerable<Book>> GetFilteredBooksAsync(
+            string? title = null,
+            string? author = null,
+            DateTime? publicationDate = null,
+            BooksOrderEnum order = BooksOrderEnum.Id,
+            CancellationToken token = default)
         {
-            var query = _query;
+            var query = _query
+                .FilterQueryByTitle(title)
+                .FilterQueryByAuthor(author)
+                .FilterQueryByDate(publicationDate);
 
-            if (title is not null)
+            query = order switch
             {
-                query = FilterQueryByTitle(query, title);
-            }
-
-            if (author is not null)
-            {
-                query = FilterQueryByAuthor(query, author);
-            }
+                BooksOrderEnum.Title => query.OrderByTitle(),
+                BooksOrderEnum.Author => query.OrderByAuthor(),
+                BooksOrderEnum.Date => query.OrderByDate(),
+                _ => query.OrderById(),
+            };
 
             return await query.ToListAsync(token);
-        }
-
-        private IQueryable<Book> FilterQueryByAuthor(IQueryable<Book> query, string author)
-        {
-            var filteredData = query.Where(b => b.Author.Contains(author));
-            return filteredData;
-        }
-
-        private IQueryable<Book> FilterQueryByTitle(IQueryable<Book> query, string title)
-        {
-            var filteredData = query.Where(b => b.Title.Contains(title));
-            return filteredData;
         }
     }
 }

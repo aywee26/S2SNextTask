@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using S2SNextTask.Application.BooksService.Commands;
 using S2SNextTask.Application.BooksService.Queries;
 using S2SNextTask.Domain.Entities;
+using S2SNextTask.Domain.Enums;
 
 namespace S2SNextTask.Presentation.WebAPI.Controllers;
 
@@ -27,9 +28,9 @@ public class BooksController : Controller
 
     [HttpGet]
     [ActionName("search")]
-    public async Task<IEnumerable<Book>> GetFilteredBooks(string? title, string? author, CancellationToken token)
+    public async Task<IEnumerable<Book>> GetFilteredBooks(string? title, string? author, DateTime? publicationDate, BooksOrderEnum order, CancellationToken token)
     {
-        var result = await _mediator.Send(new GetFilteredBooksQuery(title, author), token);
+        var result = await _mediator.Send(new GetFilteredBooksQuery(title, author, publicationDate, order), token);
         return result;
     }
 
