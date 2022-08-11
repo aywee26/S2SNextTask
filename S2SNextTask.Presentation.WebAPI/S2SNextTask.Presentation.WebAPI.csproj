@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\S2SNextTask.Application\S2SNextTask.Application.csproj" />
+    <ProjectReference Include="..\S2SNextTask.Infrastructure\S2SNextTask.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
