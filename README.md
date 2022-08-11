@@ -1,6 +1,14 @@
 # S2SNextTask
 Simple ASP.NET Core Web API. Built as a solution of S2S Next entry task.
 
+# Contents
+
+- [Powered by](https://github.com/aywee26/S2SNextTask#powered-by)
+- [Getting started](https://github.com/aywee26/S2SNextTask#getting-started)
+- [API Definition](https://github.com/aywee26/S2SNextTask#api-definition)
+- [Initial data](https://github.com/aywee26/S2SNextTask#initial-data)
+- [License](https://github.com/aywee26/S2SNextTask#initial-data)
+
 # Powered by
 - [ASP.NET Core 6](https://github.com/dotnet/aspnetcore) - .NET Foundation and Contributors
 - [Entity Framework Core 6](https://github.com/dotnet/efcore) - .NET Foundation and Contributors
