@@ -10,7 +10,7 @@ internal class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         var creator = new AppDbContextCreator<AppDbContext>(
             builder =>
             {
-                builder.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                builder.MigrationsAssembly(typeof(AppDbContextFactory).Assembly.GetName().Name);
             },
             options =>
             {

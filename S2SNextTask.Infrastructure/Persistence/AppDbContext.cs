@@ -14,6 +14,10 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Book>().HasKey(b => b.Id);
+        builder.Entity<Book>().Property(b => b.Title).HasMaxLength(200).IsRequired();
+        builder.Entity<Book>().Property(b => b.Author).HasMaxLength(200).IsRequired();
+        builder.Entity<Book>().Property(b => b.PublicationDate).IsRequired();
         base.OnModelCreating(builder);
     }
 }
