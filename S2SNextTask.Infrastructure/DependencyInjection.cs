@@ -23,8 +23,10 @@ public static class DependencyInjection
                 var options = optionsBuilder.Options;
                 return new AppDbContext(options);
             });
+        services.AddScoped<AppDbContextInitializer>();
 
         services.AddTransient<IBooksRepository, BooksRepository>();
+
 
         return services;
     }

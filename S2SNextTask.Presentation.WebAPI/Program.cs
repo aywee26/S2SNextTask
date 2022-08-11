@@ -1,5 +1,6 @@
 using S2SNextTask.Application;
 using S2SNextTask.Infrastructure;
+using S2SNextTask.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var initializer = scope.ServiceProvider.GetRequiredService<AppDbContextInitializer>();
+        await initializer.TrySeedAsync();
+    }
 }
 
 app.UseHttpsRedirection();
